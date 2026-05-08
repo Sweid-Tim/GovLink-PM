@@ -1,17 +1,28 @@
-# Obsidian 工作区状态
+# OS
+.DS_Store
+Thumbs.db
+
+# Obsidian local config
+.obsidian/
+
+# 工作区状态
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
 
 # 缓存
 .obsidian/cache/
-.obsidian/plugins/**
-.obsidian/community-plugins/**
 
-# 系统文件
-.DS_Store
-Thumbs.db
+# Claudian sessions (local chat history)
+.claudian/sessions/
 
 # 外部同步文件夹
 Feishu-Sync/
 HERMES/
 OPENCLAW/
+
+# iCloud
+.icloud
+
+# Temp / generated
+*.tmp
+*.swp
