@@ -1,0 +1,16 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Obsidian local config
+.obsidian/
+
+# Claudian sessions (local chat history)
+.claudian/sessions/
+
+# iCloud
+.icloud
+
+# Temp / generated
+*.tmp
+*.swp
