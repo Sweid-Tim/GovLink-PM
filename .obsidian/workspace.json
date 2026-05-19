@@ -1,0 +1,316 @@
+{
+  "main": {
+    "id": "f0ba3853f630618f",
+    "type": "split",
+    "children": [
+      {
+        "id": "af45eb0da8fc2e9b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3632a0e7f2fe6e5c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "项目部/02-陈晓蝶/陈晓蝶工作日志.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "陈晓蝶工作日志"
+            }
+          },
+          {
+            "id": "b1d40b635885dae4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "项目部/02-陈晓蝶/陈晓蝶项目汇总.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "陈晓蝶项目汇总"
+            }
+          },
+          {
+            "id": "2e067b4942e01fa8",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "raw/sources/项目部/行程案例/上海政法学院/上海政法学院德法团-费用预算表.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "上海政法学院德法团-费用预算表"
+            }
+          },
+          {
+            "id": "23cfd239e7f1335c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "wiki/summaries/SOP/13-行程地图生成器.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "13-行程地图生成器"
+            }
+          },
+          {
+            "id": "9539a8cb885c70ab",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "raw/sources/项目部/标书/上海商业会计学校-应标文件-正文.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "上海商业会计学校-应标文件-正文"
+            }
+          },
+          {
+            "id": "da480c97f1e8ac9f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "wiki/concepts/布达佩斯+维也纳购物攻略.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "布达佩斯+维也纳购物攻略"
+            }
+          }
+        ],
+        "currentTab": 5
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "95016624f0b65d38",
+    "type": "split",
+    "children": [
+      {
+        "id": "44437702acfeca5b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "85d265b9fae823d7",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "32267c91e45659d9",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "a0d33289352f18c1",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 322.5
+  },
+  "right": {
+    "id": "5707a4f0de6255e0",
+    "type": "split",
+    "children": [
+      {
+        "id": "468c9370ce222f9d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7cd2ac4f33d5d422",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "反向链接"
+            }
+          },
+          {
+            "id": "7e2fd1258b2c75ec",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "出链"
+            }
+          },
+          {
+            "id": "9ac8de01cf4adec2",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "0470c833fe90ff28",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "671af1d82fad4b82",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "大纲"
+            }
+          },
+          {
+            "id": "72d6f26c422866bd",
+            "type": "leaf",
+            "state": {
+              "type": "claudian-view",
+              "state": {},
+              "icon": "bot",
+              "title": "Claudian"
+            }
+          }
+        ],
+        "currentTab": 5
+      }
+    ],
+    "direction": "horizontal",
+    "width": 657.5
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false,
+      "claudian:Open Claudian": false,
+      "obsidian-excalidraw-plugin:New drawing": false
+    }
+  },
+  "active": "72d6f26c422866bd",
+  "lastOpenFiles": [
+    "wiki/summaries/SOP/27-法务自动化技能.md",
+    "wiki/summaries/英国法国团组复盘_副本.md",
+    "wiki/summaries/SOP/18-出访时间倒推表_副本.md",
+    "wiki/summaries/英国法国团组复盘_副本2.md",
+    "wiki/concepts/布达佩斯+维也纳购物指南-公务团版.docx",
+    "wiki/concepts/布达佩斯+维也纳购物指南-公务团版.md",
+    "raw/assets/vienna/spittelberg-1.jpg",
+    "raw/assets/vienna/manner-2.jpg",
+    "raw/assets/vienna/manner-1.jpg",
+    "raw/assets/vienna/goldenes-1.jpg",
+    "raw/assets/vienna/stephansplatz-1.jpg",
+    "raw/assets/vienna/goldenes-2.jpg",
+    "raw/assets/vienna/mariahilfer-2.jpg",
+    "raw/assets/vienna/julius-meinl-2.jpg",
+    "raw/assets/vienna/spittelberg-2.jpg",
+    "raw/assets/vienna/julius-meinl-1.jpg",
+    "raw/assets/vienna",
+    "raw/assets/hungary",
+    "raw/sources/项目部/标书/上海商业会计学校-应标文件-正文.md",
+    "wiki/concepts/布达佩斯+维也纳购物攻略.md",
+    "wiki/summaries/SOP/11-各国签证材料清单.md",
+    "wiki/summaries/SOP/10-签证办理咨询.md",
+    "raw/sources/项目部/标书/（定稿）XTJS2026-135 上海商业会计学校2026—2028年涉外交流咨询服务机构入围项目(3)(签章).pdf",
+    "raw/sources/项目部/标书/上海商业会计学校-标书分析及投标框架.md",
+    "raw/sources/项目部/标书/上海商业会计学校-应标文件.docx",
+    "raw/sources/项目部/标书/上海商业会计学校-投标文件框架.md",
+    "wiki/summaries/SOP/16-投标助手.md",
+    "wiki/summaries/SOP/18-出访时间倒推表.md",
+    "0409 法国、比利时8天出访细化行程（0715-0722）.docx",
+    "raw/sources/项目部/标书",
+    "wiki/summaries/SOP/02-酒店选择.md",
+    "0409 法国、比利时8天出访细化行程（0717-0724）.docx",
+    "outputs/投标-上海商业会计学校2026-2028/tender_text.txt",
+    "outputs/投标-上海商业会计学校2026-2028/template_text.txt",
+    "wiki/summaries/SOP/17-项目管理助手.md",
+    "wiki/concepts/GovLink项目管理知识体系.md",
+    "wiki/summaries/SOP/05-联系公务.md",
+    "项目部/04-李欣悦/李欣悦工作日志.md",
+    "raw/sources/项目部/历史积累/公务-20260511.md",
+    "项目部/09-田野/Tim 的笔记.md",
+    "wiki/summaries/SOP/15-会议记录助手.md",
+    "AGENTS.md",
+    "raw/sources/项目部/行程案例/昆山市外办-开姆尼茨-20261021.md",
+    "raw/sources/articles/昆山与德国城市国际合作对接会议纪要-20260515.md",
+    "raw/sources/项目部/知识/昆山-开姆尼茨线上会议议程-20260519.md",
+    "wiki/summaries/SOP/14-豆包PPT定制流程.md"
+  ]
+}
