@@ -26,3 +26,16 @@ OPENCLAW/
 # Temp / generated
 *.tmp
 *.swp
+
+# ============================================
+# 私人知识库 - 不同步到远程仓库
+# ============================================
+wiki/
+raw/
+concepts/
+travel-maps/
+项目部/
+*.md
+!.gitignore
+!CLAUDE.md
+!AGENTS.md
