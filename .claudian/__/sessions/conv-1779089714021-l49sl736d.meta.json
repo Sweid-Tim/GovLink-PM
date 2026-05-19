@@ -1,0 +1,23 @@
+{
+  "id": "conv-1779089714021-l49sl736d",
+  "providerId": "claude",
+  "title": "Explain file upload method",
+  "titleGenerationStatus": "success",
+  "createdAt": 1779089714030,
+  "updatedAt": 1779188222660,
+  "lastResponseAt": 1779188222660,
+  "sessionId": "a45df024-30ca-4f5f-a26c-9321b8925151",
+  "providerState": {
+    "providerSessionId": "a45df024-30ca-4f5f-a26c-9321b8925151"
+  },
+  "usage": {
+    "model": "haiku",
+    "inputTokens": 43,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 105856,
+    "contextWindow": 200000,
+    "contextTokens": 105899,
+    "percentage": 53,
+    "contextWindowIsAuthoritative": true
+  }
+}

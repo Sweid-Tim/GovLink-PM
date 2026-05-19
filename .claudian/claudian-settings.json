@@ -1,5 +1,5 @@
 {
-  "userName": "Tim",
+  "userName": "GovLink PM",
   "permissionMode": "yolo",
   "model": "haiku",
   "thinkingBudget": "off",
@@ -23,7 +23,7 @@
   "providerConfigs": {
     "claude": {
       "safeMode": "acceptEdits",
-      "cliPath": "",
+      "cliPath": "/Users/mac/.hermes/node/bin/claude",
       "cliPathsByHost": {},
       "loadUserSettings": true,
       "enableChrome": false,
@@ -44,9 +44,14 @@
       "reasoningSummary": "detailed",
       "environmentVariables": "",
       "environmentHash": "",
-      "installationMethod": "native-windows",
-      "installationMethodsByHost": {},
-      "wslDistroOverride": "",
+      "installationMethodsByHost": {
+        "192.168.1.7": "native-windows",
+        "192.168.1.215": "native-windows",
+        "MacBook-Air-3.local": "native-windows",
+        "192.168.1.72": "native-windows",
+        "192.168.1.34": "native-windows",
+        "Cathys-MBA.local": "native-windows"
+      },
       "wslDistroOverridesByHost": {}
     },
     "opencode": {
@@ -79,6 +84,7 @@
   "maxTabs": 3,
   "tabBarPosition": "input",
   "enableAutoScroll": true,
-  "openInMainTab": false,
+  "deferMathRenderingDuringStreaming": true,
+  "chatViewPlacement": "right-sidebar",
   "hiddenProviderCommands": {}
 }

@@ -1,0 +1,23 @@
+{
+  "id": "conv-1778599217964-eg30g37hy",
+  "providerId": "claude",
+  "title": "Move file to govlink-mk repo folder",
+  "titleGenerationStatus": "success",
+  "createdAt": 1778599217967,
+  "updatedAt": 1778640062545,
+  "lastResponseAt": 1778599311285,
+  "sessionId": "237198da-223e-4098-830b-b33afdcd5cc7",
+  "providerState": {
+    "providerSessionId": "237198da-223e-4098-830b-b33afdcd5cc7"
+  },
+  "usage": {
+    "model": "haiku",
+    "inputTokens": 290,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 33664,
+    "contextWindow": 200000,
+    "contextTokens": 33954,
+    "percentage": 17,
+    "contextWindowIsAuthoritative": true
+  }
+}

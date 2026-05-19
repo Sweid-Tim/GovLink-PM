@@ -1,0 +1,23 @@
+{
+  "id": "conv-1779073152897-sht7og541",
+  "providerId": "claude",
+  "title": "归类巴塞罗那推介会单位清单",
+  "titleGenerationStatus": "success",
+  "createdAt": 1779073152905,
+  "updatedAt": 1779107440176,
+  "lastResponseAt": 1779107440176,
+  "sessionId": "d47774c0-ba98-41b7-8889-a56b828961d2",
+  "providerState": {
+    "providerSessionId": "d47774c0-ba98-41b7-8889-a56b828961d2"
+  },
+  "usage": {
+    "model": "haiku",
+    "inputTokens": 1876,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 48000,
+    "contextWindow": 200000,
+    "contextTokens": 49876,
+    "percentage": 25,
+    "contextWindowIsAuthoritative": true
+  }
+}

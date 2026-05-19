@@ -1,0 +1,24 @@
+{
+  "id": "conv-1778644454364-r2wdkkeuq",
+  "providerId": "claude",
+  "title": "Greet user",
+  "titleGenerationStatus": "success",
+  "createdAt": 1778644454371,
+  "updatedAt": 1779175852777,
+  "lastResponseAt": 1779175852777,
+  "sessionId": "6ec5e0e5-0ed5-44ef-8ade-bb7674c765ec",
+  "providerState": {
+    "providerSessionId": "6ec5e0e5-0ed5-44ef-8ade-bb7674c765ec"
+  },
+  "currentNote": "项目部/01-姚玉丽/姚玉丽工作日志.md",
+  "usage": {
+    "model": "haiku",
+    "inputTokens": 1803,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 72320,
+    "contextWindow": 200000,
+    "contextTokens": 74123,
+    "percentage": 37,
+    "contextWindowIsAuthoritative": true
+  }
+}

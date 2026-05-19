@@ -1,0 +1,23 @@
+{
+  "id": "conv-1778679168379-ghunq8cg0",
+  "providerId": "claude",
+  "title": "Copy vault contents to new folder",
+  "titleGenerationStatus": "success",
+  "createdAt": 1778679168379,
+  "updatedAt": 1778679196750,
+  "lastResponseAt": 1778679196750,
+  "sessionId": "fa45047d-5276-4998-a081-00ef71740aa0",
+  "providerState": {
+    "providerSessionId": "fa45047d-5276-4998-a081-00ef71740aa0"
+  },
+  "usage": {
+    "model": "haiku",
+    "inputTokens": 432,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 42112,
+    "contextWindow": 200000,
+    "contextTokens": 42544,
+    "percentage": 21,
+    "contextWindowIsAuthoritative": true
+  }
+}

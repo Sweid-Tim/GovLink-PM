@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>东欧商务考察行程地图 | 2026年6月12日-18日</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        /* ===== Reset & Base ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif; }
+        #map { height: 100vh; width: 100%; background: #e8edf2; }
+
+        /* ===== Custom Marker Styles ===== */
+        .marker-base {
+            width: 40px; height: 40px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; font-weight: 800; color: #fff;
+            border: 3px solid #fff;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.35);
+            transition: transform 0.15s;
+            cursor: pointer;
+        }
+        .marker-base:hover { transform: scale(1.2); z-index: 10000 !important; }
+
+        .m-d1 { background: #D32F2F; }
+        .m-d2 { background: #E65100; }
+        .m-d3 { background: #2E7D32; }
+        .m-d4 { background: #00838F; }
+        .m-d5 { background: #1565C0; }
+
+        .marker-start {
+            width: 48px; height: 48px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; font-weight: 900; color: #333;
+            background: linear-gradient(135deg, #FFD700, #FFA000);
+            border: 4px solid #fff;
+            box-shadow: 0 3px 14px rgba(255,165,0,0.5);
+            animation: pulsate 2s ease-in-out infinite;
+            cursor: pointer;
+        }
+        @keyframes pulsate {
+            0%   { box-shadow: 0 3px 14px rgba(255,165,0,0.4); transform: scale(1); }
+            50%  { box-shadow: 0 3px 28px rgba(255,165,0,0.7); transform: scale(1.05); }
+            100% { box-shadow: 0 3px 14px rgba(255,165,0,0.4); transform: scale(1); }
+        }
+
+        .flight-icon {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: #7B1FA2; border: 3px solid #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; cursor: pointer;
+        }
+
+        /* ===== Distance Label ===== */
+        .dist-label {
+            background: rgba(0,0,0,0.75);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            pointer-events: none;
+        }
+        .dist-label small {
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        /* ===== Popup Styles ===== */
+        .popup-content {
+            font-size: 14px; line-height: 1.7;
+            min-width: 220px;
+        }
+        .popup-content h3 {
+            font-size: 18px; font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .popup-content h3 small {
+            font-weight: 400; font-size: 13px; color: #999;
+        }
+        .popup-content .meta {
+            display: flex; gap: 6px; flex-wrap: wrap;
+            margin: 6px 0 8px;
+        }
+        .popup-content .tag {
+            display: inline-block; padding: 2px 10px;
+            border-radius: 12px; font-size: 12px; font-weight: 600;
+            color: #fff;
+        }
+        .popup-content .tag-country {
+            background: #f0f0f0; color: #666;
+        }
+        .popup-content .tag-note {
+            font-size: 12px; color: #888; font-style: italic;
+            margin: 4px 0 8px;
+        }
+        .popup-content ul {
+            margin: 6px 0; padding-left: 18px;
+        }
+        .popup-content ul li {
+            margin-bottom: 2px; font-size: 13px;
+        }
+        .popup-content .flight-info {
+            background: #f3e5f5; border-left: 3px solid #7B1FA2;
+            padding: 6px 10px; margin: 6px 0;
+            border-radius: 4px; font-size: 13px;
+        }
+
+        /* ===== Legend ===== */
+        .legend-box {
+            position: absolute;
+            bottom: 30px; left: 20px;
+            background: rgba(255,255,255,0.95);
+            padding: 16px 20px; border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+            z-index: 1000;
+            max-width: 260px;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .legend-box h4 {
+            font-size: 13px; font-weight: 700;
+            margin-bottom: 8px; color: #333;
+            letter-spacing: 0.5px;
+        }
+        .legend-row {
+            display: flex; align-items: center;
+            margin: 4px 0; font-size: 12px; color: #555;
+        }
+        .ldot {
+            width: 12px; height: 12px; border-radius: 50%;
+            margin-right: 10px; flex-shrink: 0;
+            border: 1.5px solid rgba(255,255,255,0.8);
+        }
+        .lline {
+            width: 20px; height: 3px;
+            margin-right: 10px; flex-shrink: 0; border-radius: 2px;
+        }
+        .ldash {
+            width: 20px; height: 0;
+            margin-right: 10px; flex-shrink: 0;
+            border-top: 3px dashed #7B1FA2;
+        }
+
+        /* ===== Title Overlay ===== */
+        .map-title {
+            position: absolute;
+            top: 20px; left: 20px;
+            background: rgba(255,255,255,0.95);
+            padding: 14px 22px; border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+            z-index: 1000;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .map-title h2 {
+            font-size: 18px; font-weight: 700; color: #222;
+            margin-bottom: 2px;
+        }
+        .map-title .sub {
+            font-size: 13px; color: #888;
+        }
+
+        /* ===== Country Polygon Styles ===== */
+        .country-fill {
+            pointer-events: none;
+        }
+
+        /* ===== Counter badge on markers ===== */
+        .marker-label {
+            position: absolute;
+            top: -8px; right: -8px;
+            background: #fff; color: #333;
+            font-size: 10px; font-weight: 800;
+            width: 18px; height: 18px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
+
+        /* ===== Neighbor country labels (subtle) ===== */
+        .neighbor-label {
+            font-size: 11px; font-weight: 500;
+            color: rgba(0,0,0,0.2);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 640px) {
+            .map-title { top: 12px; left: 12px; padding: 10px 16px; }
+            .map-title h2 { font-size: 15px; }
+            .legend-box { left: 12px; bottom: 16px; padding: 12px 14px; max-width: 200px; }
+            .marker-base { width: 32px; height: 32px; font-size: 13px; }
+            .marker-start { width: 40px; height: 40px; font-size: 17px; }
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function() {
+    "use strict";
+
+    // ======================================================================
+    // 1. MAP — centered on Central Europe, showing country context
+    // ======================================================================
+    var map = L.map('map', {
+        center: [47.6, 16.2],
+        zoom: 6.8,
+        zoomControl: true,
+        attributionControl: true
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19
+    }).addTo(map);
+
+    L.control.scale({ position: 'bottomright', metric: true, imperial: false }).addTo(map);
+
+    // ======================================================================
+    // 2. COUNTRY POLYGONS — Austria & Hungary outlines with fill + border
+    // ======================================================================
+
+    // --- Austria (approximate boundary polygon) ---
+    var austriaCoords = [
+        [47.55, 9.53],   [47.70, 9.75],   [47.95, 10.10],
+        [48.20, 10.50],  [48.40, 10.90],  [48.55, 11.30],
+        [48.65, 11.80],  [48.72, 12.30],  [48.78, 12.80],
+        [48.82, 13.30],  [48.85, 13.80],  [48.83, 14.30],
+        [48.78, 14.80],  [48.73, 15.20],  [48.67, 15.60],
+        [48.60, 15.90],  [48.50, 16.30],  [48.40, 16.55],
+        [48.25, 16.80],  [48.05, 17.05],  [47.85, 17.12],
+        [47.65, 16.95],  [47.45, 16.75],  [47.25, 16.55],
+        [47.05, 16.35],  [46.85, 16.10],  [46.70, 15.75],
+        [46.58, 15.35],  [46.50, 14.85],  [46.48, 14.45],
+        [46.50, 14.05],  [46.48, 13.65],  [46.52, 13.25],
+        [46.55, 12.85],  [46.60, 12.45],  [46.65, 12.05],
+        [46.72, 11.65],  [46.82, 11.25],  [46.92, 10.85],
+        [47.02, 10.45],  [47.15, 10.10],  [47.30, 9.80],
+        [47.55, 9.53]
+    ];
+
+    L.polygon(austriaCoords, {
+        color: '#1B5E20',
+        weight: 2.5,
+        opacity: 0.7,
+        fillColor: '#A5D6A7',
+        fillOpacity: 0.15
+    }).addTo(map);
+
+    // --- Hungary (approximate boundary polygon) ---
+    var hungaryCoords = [
+        [47.95, 17.10],  [48.10, 17.30],  [48.20, 17.60],
+        [48.28, 18.00],  [48.35, 18.40],  [48.40, 18.80],
+        [48.42, 19.20],  [48.42, 19.60],  [48.38, 20.00],
+        [48.33, 20.40],  [48.28, 20.70],  [48.20, 21.00],
+        [48.08, 21.30],  [47.95, 21.55],  [47.80, 21.80],
+        [47.60, 22.05],  [47.35, 22.25],  [47.10, 22.35],
+        [46.80, 22.20],  [46.50, 21.80],  [46.25, 21.30],
+        [46.05, 20.80],  [45.88, 20.30],  [45.82, 19.90],
+        [45.78, 19.50],  [45.80, 19.10],  [45.83, 18.70],
+        [45.90, 18.30],  [46.00, 17.90],  [46.15, 17.50],
+        [46.35, 17.10],  [46.55, 16.80],  [46.80, 16.55],
+        [47.05, 16.35],  [47.30, 16.20],  [47.55, 16.05],
+        [47.80, 16.55],  [47.95, 17.10]
+    ];
+
+    L.polygon(hungaryCoords, {
+        color: '#BF360C',
+        weight: 2.5,
+        opacity: 0.7,
+        fillColor: '#FFCC80',
+        fillOpacity: 0.15
+    }).addTo(map);
+
+    // ======================================================================
+    // 3. NEIGHBOR COUNTRY LABELS (subtle context)
+    // ======================================================================
+    var neighborStyle = 'font-size:11px;font-weight:500;color:rgba(0,0,0,0.18);' +
+                        'text-transform:uppercase;letter-spacing:2px;' +
+                        'pointer-events:none;white-space:nowrap;';
+
+    var neighbors = [
+        { name: "GERMANY", lat: 49.5, lng: 12.5 },
+        { name: "CZECH REPUBLIC", lat: 49.7, lng: 16.0 },
+        { name: "SLOVAKIA", lat: 48.7, lng: 19.5 },
+        { name: "UKRAINE", lat: 48.3, lng: 23.5 },
+        { name: "ROMANIA", lat: 46.3, lng: 22.8 },
+        { name: "SERBIA", lat: 45.3, lng: 20.0 },
+        { name: "CROATIA", lat: 45.5, lng: 17.0 },
+        { name: "SLOVENIA", lat: 46.0, lng: 15.0 },
+        { name: "ITALY", lat: 45.5, lng: 12.0 },
+        { name: "SWITZERLAND", lat: 46.8, lng: 8.5 },
+        { name: "POLAND", lat: 50.5, lng: 19.5 }
+    ];
+
+    neighbors.forEach(function(n) {
+        var icon = L.divIcon({
+            html: '<div style="' + neighborStyle + '">' + n.name + '</div>',
+            iconSize: [160, 24],
+            iconAnchor: [80, 12],
+            className: ''
+        });
+        L.marker([n.lat, n.lng], { icon: icon, interactive: false }).addTo(map);
+    });
+
+    // ======================================================================
+    // 4. COUNTRY NAME LABELS (prominent)
+    // ======================================================================
+    var bigLabel = 'font-size:40px;font-weight:800;color:rgba(0,0,0,0.07);' +
+                   'text-transform:uppercase;letter-spacing:8px;' +
+                   'pointer-events:none;white-space:nowrap;';
+
+    var huBig = L.divIcon({
+        html: '<div style="' + bigLabel + '">HUNGARY<br><span style="font-size:20px;letter-spacing:4px;">匈牙利</span></div>',
+        iconSize: [320, 80], iconAnchor: [160, 40], className: ''
+    });
+    L.marker([47.1, 19.5], { icon: huBig, interactive: false }).addTo(map);
+
+    var atBig = L.divIcon({
+        html: '<div style="' + bigLabel + '">AUSTRIA<br><span style="font-size:20px;letter-spacing:4px;">奥地利</span></div>',
+        iconSize: [320, 80], iconAnchor: [160, 40], className: ''
+    });
+    L.marker([47.6, 14.0], { icon: atBig, interactive: false }).addTo(map);
+
+    // ======================================================================
+    // 5. ROUTE DATA
+    // ======================================================================
+    var stops = [
+        { id: 1, name: "布达佩斯", en: "Budapest",  country: "匈牙利", lat: 47.4979, lng: 19.0402,
+          day: "D1", date: "6月12日(五)", cls: "m-d1", start: true,
+          note: "首站 · 全天商务拜访",
+          activities: [
+            "✈ 上海 → 布达佩斯（MU8639）",
+            "拜访莱特泰克照明技术有限公司",
+            "拜访吉富商贸及园区级",
+            "拜访3E国际集团"
+          ] },
+        { id: 2, name: "托卡伊", en: "Tokaj",  country: "匈牙利", lat: 48.1190, lng: 21.4105,
+          day: "D2", date: "6月13日(六)", cls: "m-d2",
+          note: "匈牙利著名葡萄酒产区",
+          activities: [
+            "拜访绍什考布达福克起泡酒公司",
+            "布达佩斯 → 托卡伊"
+          ] },
+        { id: 3, name: "埃格尔", en: "Eger",  country: "匈牙利", lat: 47.8966, lng: 20.3770,
+          day: "D2", date: "6月13日(六)", cls: "m-d2",
+          note: "过夜住宿",
+          activities: [
+            "拜访绍什考托卡伊酒庄",
+            "托卡伊 → 埃格尔"
+          ] },
+        { id: 4, name: "维也纳", en: "Vienna",  country: "奥地利", lat: 48.2082, lng: 16.3738,
+          day: "D3/D5-D6", date: "6月14日/16-17日", cls: "m-d3",
+          note: "多次到访 — D3抵达，D5返回，D6离境",
+          activities: [
+            "埃格尔 → 维也纳（D3）",
+            "维也纳大学公务",
+            "塔恩集团专场路演（D5）",
+            "欧洲天然保健食品展览会（D5）",
+            "拜访中行维也纳分行（D6）",
+            "✈ 维也纳 → 北京（CA842, D6）"
+          ] },
+        { id: 5, name: "蒙德湖", en: "Mondsee",  country: "奥地利", lat: 47.8565, lng: 13.3502,
+          day: "D4", date: "6月15日(一)", cls: "m-d4",
+          note: "阿尔卑斯山麓湖区",
+          activities: [
+            "维也纳 → 蒙德湖",
+            "拜访倍世集团（BWT）",
+            "举办普陀区营商环境推介会",
+            "蒙德湖 → 林茨"
+          ] },
+        { id: 6, name: "林茨", en: "Linz",  country: "奥地利", lat: 48.3069, lng: 14.2858,
+          day: "D4-D5", date: "6月15-16日", cls: "m-d5",
+          note: "上奥地利州首府 · 多瑙河畔",
+          activities: [
+            "拜访塔恩集团（D5上午）",
+            "塔恩集团专场路演（D5下午）",
+            "欧洲天然保健食品展览会",
+            "林茨 → 维也纳（D5晚）"
+          ] }
+    ];
+
+    // ======================================================================
+    // 6. ROUTE POLYLINE + DISTANCE LABELS
+    // ======================================================================
+    var routeCoords = [
+        [47.4979, 19.0402],  // 1 Budapest
+        [48.1190, 21.4105],  // 2 Tokaj
+        [47.8966, 20.3770],  // 3 Eger
+        [48.2082, 16.3738],  // 4 Vienna
+        [47.8565, 13.3502],  // 5 Mondsee
+        [48.3069, 14.2858],  // 6 Linz
+        [48.2082, 16.3738]   // 7 Vienna (return)
+    ];
+
+    // Segment colors by day
+    var segColors = ['#D32F2F', '#E65100', '#2E7D32', '#00838F', '#1565C0', '#2E7D32'];
+    // Distance data: [km, driving time]
+    var segDist = [
+        [225, "约2.5h"],
+        [85,  "约1h"],
+        [310, "约3.5h"],
+        [290, "约3h"],
+        [135, "约1.5h"],
+        [185, "约2h"]
+    ];
+    // Segment labels
+    var segLabels = ["布达佩斯→托卡伊", "托卡伊→埃格尔", "埃格尔→维也纳",
+                     "维也纳→蒙德湖", "蒙德湖→林茨", "林茨→维也纳（返）"];
+
+    for (var i = 0; i < routeCoords.length - 1; i++) {
+        // Draw route line
+        L.polyline([routeCoords[i], routeCoords[i+1]], {
+            color: segColors[i],
+            weight: 5,
+            opacity: 0.9
+        }).addTo(map);
+
+        // Midpoint for distance label
+        var mLat = (routeCoords[i][0] + routeCoords[i+1][0]) / 2;
+        var mLng = (routeCoords[i][1] + routeCoords[i+1][1]) / 2;
+
+        // Small offset perpendicular to route direction to avoid overlap with line
+        var dLat2 = routeCoords[i+1][0] - routeCoords[i][0];
+        var dLng2 = routeCoords[i+1][1] - routeCoords[i][1];
+        var len = Math.sqrt(dLat2*dLat2 + dLng2*dLng2);
+        if (len > 0) {
+            // Offset perpendicular (rotate 90°)
+            var offsetFactor = 0.06;
+            var perpLat = -dLng2 / len * offsetFactor;
+            var perpLng = dLat2 / len * offsetFactor;
+
+            var distIcon = L.divIcon({
+                html: '<div class="dist-label">' +
+                      '🚗 ' + segDist[i][0] + 'km <small>' + segDist[i][1] + '</small>' +
+                      '</div>',
+                iconSize: [0, 0],
+                iconAnchor: [0, 0],
+                className: ''
+            });
+            L.marker([mLat + perpLat, mLng + perpLng], {
+                icon: distIcon,
+                interactive: false
+            }).addTo(map);
+        }
+    }
+
+    // ======================================================================
+    // 7. ROUTE ARROW INDICATORS (midpoints)
+    // ======================================================================
+    for (var j = 0; j < routeCoords.length - 1; j++) {
+        var mLat2 = (routeCoords[j][0] + routeCoords[j+1][0]) / 2;
+        var mLng2 = (routeCoords[j][1] + routeCoords[j+1][1]) / 2;
+        var a = Math.atan2(
+            routeCoords[j+1][1] - routeCoords[j][1],
+            routeCoords[j+1][0] - routeCoords[j][0]
+        ) * 180 / Math.PI;
+
+        var arrowIcon = L.divIcon({
+            html: '<div style="transform:rotate(' + a + 'deg);font-size:16px;opacity:0.6;' +
+                  'text-shadow:0 1px 3px rgba(0,0,0,0.3);">▶</div>',
+            iconSize: [16, 16], iconAnchor: [8, 8], className: ''
+        });
+        L.marker([mLat2, mLng2], { icon: arrowIcon, interactive: false }).addTo(map);
+    }
+
+    // ======================================================================
+    // 8. STATION MARKERS
+    // ======================================================================
+    stops.forEach(function(stop) {
+        var html, size;
+        if (stop.start) {
+            html = '<div class="marker-start">' + stop.id + '</div>';
+            size = [48, 48];
+        } else {
+            html = '<div class="marker-base ' + stop.cls + '">' + stop.id + '</div>';
+            size = [40, 40];
+        }
+
+        var icon = L.divIcon({
+            html: html,
+            iconSize: size,
+            iconAnchor: [size[0]/2, size[1]/2],
+            className: ''
+        });
+
+        // Color mapping for day tag
+        var dayColor = '#888';
+        switch(stop.cls) {
+            case 'm-d1': dayColor = '#D32F2F'; break;
+            case 'm-d2': dayColor = '#E65100'; break;
+            case 'm-d3': dayColor = '#2E7D32'; break;
+            case 'm-d4': dayColor = '#00838F'; break;
+            case 'm-d5': dayColor = '#1565C0'; break;
+        }
+
+        var pop = '<div class="popup-content">';
+        pop += '<h3>' + stop.name + ' <small>' + stop.en + '</small></h3>';
+        pop += '<div class="meta">';
+        pop += '<span class="tag" style="background:' + dayColor + ';">' + stop.day + '</span>';
+        pop += '<span class="tag tag-country">' + stop.country + '</span>';
+        pop += '<span style="font-size:12px;color:#999;line-height:24px;">' + stop.date + '</span>';
+        pop += '</div>';
+        if (stop.note) {
+            pop += '<div class="tag-note">📍 ' + stop.note + '</div>';
+        }
+        pop += '<ul>';
+        stop.activities.forEach(function(a) {
+            if (a.indexOf('✈') === 0) {
+                pop += '<li style="color:#7B1FA2;">' + a + '</li>';
+            } else {
+                pop += '<li>' + a + '</li>';
+            }
+        });
+        pop += '</ul></div>';
+
+        var marker = L.marker([stop.lat, stop.lng], { icon: icon })
+            .addTo(map)
+            .bindPopup(pop, { maxWidth: 300 });
+
+        if (stop.start) {
+            setTimeout(function() { marker.openPopup(); }, 600);
+        }
+    });
+
+    // ======================================================================
+    // 9. FLIGHT MARKERS
+    // ======================================================================
+
+    // Inbound flight (near Budapest)
+    var finIcon = L.divIcon({
+        html: '<div class="flight-icon">✈</div>',
+        iconSize: [36, 36], iconAnchor: [18, 18], className: ''
+    });
+    L.marker([47.0, 18.5], { icon: finIcon })
+        .addTo(map)
+        .bindPopup(
+            '<div class="popup-content">' +
+            '<h3>✈ 去程航班</h3>' +
+            '<div class="flight-info">' +
+            '<b>上海 → 布达佩斯</b><br>' +
+            '航班：MU8639<br>6月12日 凌晨出发，当日抵达' +
+            '</div></div>', { maxWidth: 250 }
+        );
+
+    // Outbound flight (near Vienna)
+    var foutIcon = L.divIcon({
+        html: '<div class="flight-icon">✈</div>',
+        iconSize: [36, 36], iconAnchor: [18, 18], className: ''
+    });
+    L.marker([48.7, 15.5], { icon: foutIcon })
+        .addTo(map)
+        .bindPopup(
+            '<div class="popup-content">' +
+            '<h3>✈ 回程航班</h3>' +
+            '<div class="flight-info">' +
+            '<b>维也纳 → 北京 → 上海</b><br>' +
+            'CA842 维也纳→北京（D6）<br>' +
+            'CA1507 北京→上海（D7）' +
+            '</div></div>', { maxWidth: 250 }
+        );
+
+    // ======================================================================
+    // 10. TITLE OVERLAY
+    // ======================================================================
+    var titleCtrl = L.Control.extend({
+        options: { position: 'topleft' },
+        onAdd: function() {
+            var div = L.DomUtil.create('div', 'map-title');
+            div.innerHTML = '<h2>东欧商务考察行程路线</h2>' +
+                '<div class="sub">2026年6月12日 — 6月18日 &nbsp;·&nbsp; 匈牙利 → 奥地利</div>';
+            return div;
+        }
+    });
+    map.addControl(new titleCtrl());
+
+    // ======================================================================
+    // 11. LEGEND
+    // ======================================================================
+    var legCtrl = L.Control.extend({
+        options: { position: 'bottomleft' },
+        onAdd: function() {
+            var div = L.DomUtil.create('div', 'legend-box');
+            div.innerHTML =
+                '<h4>图 例</h4>' +
+                '<div class="legend-row"><div class="ldot" style="background:linear-gradient(135deg,#FFD700,#FFA000);"></div>首站 · 布达佩斯</div>' +
+                '<div class="legend-row"><div class="ldot" style="background:#D32F2F;"></div>D1 · 布达佩斯</div>' +
+                '<div class="legend-row"><div class="ldot" style="background:#E65100;"></div>D2 · 托卡伊 → 埃格尔</div>' +
+                '<div class="legend-row"><div class="ldot" style="background:#2E7D32;"></div>D3 · 维也纳</div>' +
+                '<div class="legend-row"><div class="ldot" style="background:#00838F;"></div>D4 · 蒙德湖 → 林茨</div>' +
+                '<div class="legend-row"><div class="ldot" style="background:#1565C0;"></div>D5 · 林茨 → 维也纳</div>' +
+                '<div class="legend-row" style="margin-top:6px;padding-top:6px;border-top:1px solid #eee;">' +
+                '  <div class="lline" style="background:#555;"></div>行车路线</div>' +
+                '<div class="legend-row"><div class="ldash"></div>✈ 航班</div>' +
+                '<div class="legend-row" style="margin-top:4px;font-size:11px;color:#999;">' +
+                '🟢 奥地利 &nbsp;🟠 匈牙利</div>';
+            return div;
+        }
+    });
+    map.addControl(new legCtrl());
+
+})();
+</script>
+</body>
+</html>

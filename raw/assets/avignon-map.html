@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阿维尼翁北区 — 点位地图</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Helvetica Neue', 'Microsoft YaHei', Arial, sans-serif; background: #f5f0eb; }
+  .header {
+    background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
+    color: white; padding: 28px 40px; text-align: center;
+  }
+  .header h1 { font-size: 26px; font-weight: 600; letter-spacing: 2px; margin-bottom: 6px; }
+  .header p { font-size: 14px; opacity: 0.8; }
+  #map { height: 620px; width: 100%; }
+  .legend {
+    background: white; border-radius: 12px; padding: 18px 22px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 340px;
+    margin: 20px auto;
+  }
+  .legend h3 { font-size: 14px; color: #2d3436; margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+  .legend-item { display: flex; align-items: center; margin: 6px 0; font-size: 13px; color: #444; }
+  .legend-dot {
+    width: 12px; height: 12px; border-radius: 50%; margin-right: 10px; flex-shrink: 0;
+    border: 2px solid rgba(0,0,0,0.15);
+  }
+  .legend-cat { font-size: 11px; color: #999; margin: 4px 0 2px 22px; }
+  .info-panel {
+    background: white; max-width: 900px; margin: 0 auto 20px;
+    border-radius: 12px; padding: 20px 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .info-panel h3 { font-size: 15px; color: #2d3436; margin-bottom: 12px; }
+  .info-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .info-table th { text-align: left; padding: 8px 10px; background: #f8f6f4; color: #636e72; font-weight: 500; }
+  .info-table td { padding: 8px 10px; border-bottom: 1px solid #f0ece8; }
+  .info-table tr:last-child td { border-bottom: none; }
+  .badge-hotel { display: inline-block; background: #e8f5e9; color: #2e7d32; padding: 2px 10px; border-radius: 10px; font-size: 11px; font-weight: 500; }
+  .badge-shop { display: inline-block; background: #e3f2fd; color: #1565c0; padding: 2px 10px; border-radius: 10px; font-size: 11px; font-weight: 500; }
+  .badge-mall { display: inline-block; background: #fff3e0; color: #e65100; padding: 2px 10px; border-radius: 10px; font-size: 11px; font-weight: 500; }
+  .footer { text-align: center; padding: 20px; font-size: 12px; color: #999; }
+  @media (max-width: 600px) {
+    .header { padding: 18px 16px; }
+    .header h1 { font-size: 20px; }
+    #map { height: 440px; }
+    .info-panel { margin: 0 10px 16px; padding: 14px; }
+    .legend { margin: 12px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📍 阿维尼翁北区 · 点位地图</h1>
+  <p>Avignon Nord — Hôtels · Centres Commerciaux · Outlets</p>
+</div>
+
+<div id="map"></div>
+
+<div class="legend">
+  <h3>图例</h3>
+  <div class="legend-item"><span class="legend-dot" style="background:#27ae60;"></span> 🏨 酒店</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#e67e22;"></span> 🛍️ 购物中心</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#2980b9;"></span> 🏪 品牌折扣店</div>
+</div>
+
+<div class="info-panel">
+  <h3>📋 点位明细</h3>
+  <table class="info-table">
+    <tr><th style="width:40px;">#</th><th style="width:180px;">名称</th><th style="width:90px;">类别</th><th>地址</th></tr>
+    <tr>
+      <td>①</td><td><b>Hôtel 1770 & Spa</b></td>
+      <td><span class="badge-hotel">🏨 酒店</span></td>
+      <td>107 Allée de Viré Abeille, 84130 Le Pontet</td>
+    </tr>
+    <tr>
+      <td>②</td><td><b>Novotel Avignon Nord</b></td>
+      <td><span class="badge-hotel">🏨 酒店</span></td>
+      <td>135 Avenue Louis Pasteur, 84700 Sorgues</td>
+    </tr>
+    <tr>
+      <td>③</td><td><b>Zone Commerciale Avignon Nord</b></td>
+      <td><span class="badge-mall">🛍️ 商业区</span></td>
+      <td>ZAC du Tronquet, 84130 Le Pontet</td>
+    </tr>
+    <tr>
+      <td>④</td><td><b>Aushopping Avignon</b></td>
+      <td><span class="badge-mall">🛍️ 购物中心</span></td>
+      <td>533 Avenue Louis Braille, 84130 Le Pontet</td>
+    </tr>
+    <tr>
+      <td>⑤</td><td><b>Auchan Avignon Nord</b></td>
+      <td><span class="badge-mall">🛍️ 大型超市</span></td>
+      <td>Auchan, ZAC du Tronquet, Le Pontet</td>
+    </tr>
+    <tr>
+      <td>⑤</td><td><b>E.Leclerc Avignon</b></td>
+      <td><span class="badge-mall">🛍️ 大型超市</span></td>
+      <td>10 Avenue Eisenhower, 84000 Avignon（城中）</td>
+    </tr>
+    <tr>
+      <td>⑥</td><td><b>adidas Outlet</b></td>
+      <td><span class="badge-shop">🏪 折扣店</span></td>
+      <td>574 Avenue Louis Braille, 84130 Le Pontet</td>
+    </tr>
+    <tr>
+      <td>⑦</td><td><b>Centre Commercial Auchan / Aushopping</b></td>
+      <td><span class="badge-mall">🛍️ 购物中心</span></td>
+      <td>533 Avenue Louis Braille, 84130 Le Pontet（同④）</td>
+    </tr>
+  </table>
+</div>
+
+<div class="footer">
+  数据来源：Google Maps / OpenStreetMap | 制图：GovLink PM · 2026
+</div>
+
+<script>
+const map = L.map('map', {
+  center: [43.980, 4.881],
+  zoom: 14,
+  zoomControl: true,
+});
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>',
+  maxZoom: 19,
+}).addTo(L.map('map'));
+
+// Reset center after tile layer is loaded
+map.setView([43.980, 4.881], 14);
+
+// ---- Custom icon function ----
+function makeIcon(color, label) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="44" viewBox="0 0 36 44">
+    <path d="M18 0C8.06 0 0 8.06 0 18c0 13.5 18 26 18 26s18-12.5 18-26C36 8.06 27.94 0 18 0z" fill="${color}" stroke="white" stroke-width="2"/>
+    <text x="18" y="20" text-anchor="middle" fill="white" font-size="14" font-weight="bold">${label}</text>
+  </svg>`;
+  return L.divIcon({
+    html: svg,
+    className: '',
+    iconSize: [36, 44],
+    iconAnchor: [18, 44],
+    popupAnchor: [0, -48],
+  });
+}
+
+// ---- Data ----
+const locations = [
+  {
+    id: '①', name: 'Hôtel 1770 & Spa', category: 'hotel', color: '#27ae60',
+    coords: [43.9788, 4.8730],
+    addr: '107 Allée de Viré Abeille, 84130 Le Pontet',
+    phone: '+33 4 90 81 17 70',
+    desc: '四星级精品酒店，1770年普罗旺斯庄园，带Kokoon Spa水疗中心、室内泳池、Factory餐厅',
+    url: 'https://www.hotel-1770.com',
+  },
+  {
+    id: '②', name: 'Novotel Avignon Nord', category: 'hotel', color: '#27ae60',
+    coords: [43.9850, 4.8887],
+    addr: '135 Avenue Louis Pasteur, 84700 Sorgues',
+    phone: '+33 4 90 03 85 00',
+    desc: '雅高集团四星连锁酒店，126间客房，带餐厅、酒吧、户外泳池、免费停车场',
+    url: 'https://all.accor.com/hotel/0550',
+  },
+  {
+    id: '③', name: 'Zone Commerciale Avignon Nord', category: 'mall', color: '#e67e22',
+    coords: [43.9828, 4.8808],
+    addr: 'ZAC du Tronquet, 84130 Le Pontet',
+    phone: '',
+    desc: '阿维尼翁北部大型商业区，聚集数十家品牌门店、餐厅和服务设施',
+  },
+  {
+    id: '④', name: 'Aushopping Avignon', category: 'mall', color: '#e67e22',
+    coords: [43.9825, 4.8806],
+    addr: '533 Avenue Louis Braille, 84130 Le Pontet',
+    phone: '',
+    desc: 'Auchan旗下购物中心，内有Auchan大型超市、Fnac、电影院等',
+  },
+  {
+    id: '⑤-1', name: 'Auchan Avignon Nord', category: 'mall', color: '#e67e22',
+    coords: [43.9818, 4.8792],
+    addr: 'Auchan Hyper, ZAC du Tronquet, 84130 Le Pontet',
+    phone: '',
+    desc: 'Auchan大型综合超市，生鲜食品、日用百货、酒水饮料一应俱全',
+  },
+  {
+    id: '⑤-2', name: 'E.Leclerc Avignon', category: 'mall', color: '#e67e22',
+    coords: [43.9438, 4.8056],
+    addr: '10 Avenue Eisenhower, 84000 Avignon',
+    phone: '+33 4 90 85 14 18',
+    desc: 'E.Leclerc超市（位于阿维尼翁市区中心，非北区）',
+  },
+  {
+    id: '⑥', name: 'adidas Outlet', category: 'outlet', color: '#2980b9',
+    coords: [43.9812, 4.8832],
+    addr: '574 Avenue Louis Braille, 84130 Le Pontet',
+    phone: '+33 4 32 40 47 31',
+    desc: '阿迪达斯官方折扣店，运动服饰鞋履折扣销售',
+    url: 'https://go.adidas.com',
+  },
+  {
+    id: '⑦', name: 'Auchan / Aushopping (同④)', category: 'mall', color: '#e67e22',
+    coords: [43.9825, 4.8806],
+    addr: '533 Avenue Louis Braille, 84130 Le Pontet',
+    phone: '',
+    desc: '与④ Aushopping Avignon为同一购物中心',
+  },
+];
+
+// ---- Add markers ----
+locations.forEach((loc, index) => {
+  let icon;
+  if (loc.category === 'hotel') {
+    icon = makeIcon('#27ae60', loc.id.replace(/[^①②③④⑤⑥⑦]/, ''));
+  } else if (loc.category === 'outlet') {
+    // Use index-based label extraction
+    let label = loc.id.replace(/[^①②③④⑤⑥⑦]/g, '');
+    if (loc.id === '⑤-1') label = '⑤';
+    if (loc.id === '⑤-2') label = '⑤';
+    icon = makeIcon('#2980b9', label);
+  } else {
+    let label = loc.id.replace(/[^①②③④⑤⑥⑦]/g, '');
+    if (loc.id === '⑤-1') label = '⑤';
+    if (loc.id === '⑤-2') label = '⑤b';
+    icon = makeIcon('#e67e22', label);
+  }
+
+  // Only show marker for unique locations (skip ⑦ duplicate)
+  if (loc.id !== '⑦') {
+    const marker = L.marker(loc.coords, { icon }).addTo(map);
+
+    let html = `<div style="font-family:'Helvetica Neue','Microsoft YaHei',sans-serif;min-width:220px;">
+      <div style="font-size:16px;font-weight:600;margin-bottom:4px;">${loc.id} ${loc.name}</div>
+      <div style="font-size:12px;color:#666;margin-bottom:8px;">📍 ${loc.addr}</div>`;
+
+    if (loc.desc) html += `<div style="font-size:13px;color:#444;margin-bottom:6px;">${loc.desc}</div>`;
+    if (loc.phone) html += `<div style="font-size:12px;color:#888;">📞 ${loc.phone}</div>`;
+    if (loc.url) html += `<div style="font-size:12px;"><a href="${loc.url}" target="_blank">🔗 官网</a></div>`;
+
+    html += `</div>`;
+
+    marker.bindPopup(html, { maxWidth: 320 });
+  }
+});
+
+// ---- Fit bounds ----
+const group = L.featureGroup([
+  L.marker([43.9788, 4.8730]),
+  L.marker([43.9850, 4.8887]),
+  L.marker([43.9438, 4.8056]),
+  L.marker([43.9828, 4.8808]),
+  L.marker([43.9825, 4.8806]),
+  L.marker([43.9818, 4.8792]),
+  L.marker([43.9812, 4.8832]),
+]);
+map.fitBounds(group.getBounds().pad(0.15));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "id": "conv-1778640152023-vdl6tcnmd",
+  "providerId": "claude",
+  "title": "制定日本新加坡8月完整出团方案",
+  "titleGenerationStatus": "success",
+  "createdAt": 1778640152036,
+  "updatedAt": 1778642155082,
+  "lastResponseAt": 1778640963013,
+  "sessionId": "b5f51014-1a4e-409f-8e7a-d41739206881",
+  "providerState": {
+    "providerSessionId": "b5f51014-1a4e-409f-8e7a-d41739206881"
+  },
+  "usage": {
+    "model": "haiku",
+    "inputTokens": 150,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 130048,
+    "contextWindow": 200000,
+    "contextTokens": 130198,
+    "percentage": 65,
+    "contextWindowIsAuthoritative": true
+  }
+}
